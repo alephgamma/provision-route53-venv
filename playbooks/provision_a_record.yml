@@ -1,0 +1,20 @@
+---
+- name: manage dns records
+  hosts: localhost
+  gather_facts: no
+  connection: local
+  vars:
+    domain: "whitehatmonkey.com"
+    ip: "172.93.158.171"
+    aak: "{{ lookup('env','AWS_ACCESS_KEY') }}"
+    ask: "{{ lookup('env','AWS_SECRET_ACCESS_KEY') }}"
+  tasks:
+    - name: Add an a-record
+      route53:
+        aws_access_key: "{{ aak }}"
+        aws_secret_key: "{{ ask }}"
+        state: present
+        zone: "{{ domain }}"
+        record: "mail.{{ domain }}"
+        type: A
+        value: "{{ ip }}"

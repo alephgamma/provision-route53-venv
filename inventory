@@ -1,0 +1,2 @@
+[localhost]
+localhosts ansible_python_interpreter=/home/centos/aws-ansible/bin/python

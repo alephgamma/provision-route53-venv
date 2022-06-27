@@ -1,2 +1,2 @@
 [localhost]
-localhosts ansible_python_interpreter=/home/centos/aws-ansible/bin/python
+localhosts ansible_python_interpreter=/home/centos/.virtualenvs/provision-route53-venv/bin/python

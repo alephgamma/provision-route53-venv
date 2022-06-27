@@ -4,8 +4,8 @@
   gather_facts: no
   connection: local
   vars:
-    domain: "whitehatmonkey.com"
-    ip: "172.93.158.171"
+    domain: "{{ lookup('env','DOMAIN') }}" 
+    ip: "{{ lookup('env','IP') }}"
     aak: "{{ lookup('env','AWS_ACCESS_KEY') }}"
     ask: "{{ lookup('env','AWS_SECRET_ACCESS_KEY') }}"
   tasks:
@@ -15,6 +15,15 @@
         aws_secret_key: "{{ ask }}"
         state: present
         zone: "{{ domain }}"
-        record: "mail1.{{ domain }}"
+        record: "mail.{{ domain }}"
         type: A
         value: "{{ ip }}"
+    - name: Add an mx-record
+      route53:
+        aws_access_key: "{{ aak }}"
+        aws_secret_key: "{{ ask }}"
+        state: present
+        zone: "{{ domain }}"
+        record: "{{ domain }}"
+        type: MX
+        value: "10 mail.{{ domain }}"
